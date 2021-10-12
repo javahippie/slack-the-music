@@ -48,7 +48,7 @@
 ;; This runs when the namespace is loaded
 (let [{:keys [title artist state]} (get-current-track)]
   (if (= :playing state)
-      "Apple Music not running, no track set"
-      (if (set-slack-status title artist)
-        (format "%s by %s published to Slack" title artist)
-        "Could not connect to Slack. Is your token correct?")))
+    (if (set-slack-status title artist)
+      (format "%s by %s published to Slack" title artist)
+      "Could not connect to Slack. Is your token correct?")
+    "Apple Music not running, no track set"))
