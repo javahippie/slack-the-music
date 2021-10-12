@@ -6,6 +6,8 @@ Usage:
 
 `bb stm.clj -t <YOUR_APP_TOKEN>`
 
+Before running this, you need to create an application in your Slack Workspace which has the permission `users.profile:write` and use the API-Token of this application. You can do this in [the Slack settings](https://api.slack.com/apps?new_app=1).
+
 ## License
 
 Copyright © 2021 Tim Zöller

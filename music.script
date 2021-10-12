@@ -1,0 +1,6 @@
+tell application "Music"
+	set songTitle to name of current track
+	set artistTitle to artist of current track
+	set state to player state
+	return "{:title \"" & songTitle & "\" :artist \"" & artistTitle & "\" :state :" & state & "}"
+end tell
