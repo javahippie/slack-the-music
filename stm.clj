@@ -31,24 +31,31 @@
       (json/decode)
       (get "ok")))
 
+(defn get-emoji [genre]
+  (case genre
+    "Metal" ":the_horns:"
+    "Jazz" ":trumpet:"
+    "Alternative" ":broccoli:"
+    ":headphones"))
+
 (defn set-slack-status
   "Publishes track and artist in your Slack status.
   Returns true if successful, false else.
   The status expires automatically after 3 minutes.
   Increase the expiry limit to 20 minutes, if you are into progressive rock."
-  [title artist]
+  [title artist album genre]
   (let [token (get-in (parse-opts *command-line-args* cli-options) [:options :token])]
     (response-ok?
      (curl/post "https://slack.com/api/users.profile.set"
                 {:headers {"Authorization" (str "Bearer " token)}
-                 :query-params {"profile" (json/generate-string {:status_text (str title " - " artist)
-                                                                 :status_emoji ":headphones:"
+                 :query-params {"profile" (json/generate-string {:status_text (str title " - " artist " (" album ")")
+                                                                 :status_emoji (get-emoji genre)
                                                                  :status_expiration (.toEpochSecond (.plusMinutes (java.time.ZonedDateTime/now) 3))})}}))))
 
 ;; This runs when the namespace is loaded
-(let [{:keys [title artist state]} (get-current-track)]
+(let [{:keys [title artist album genre state]} (get-current-track)]
   (if (= :playing state)
-    (if (set-slack-status title artist)
+    (if (set-slack-status title artist album genre)
       (format "%s by %s published to Slack" title artist)
       "Could not connect to Slack. Is your token correct?")
     "Apple Music not running, no track set"))
