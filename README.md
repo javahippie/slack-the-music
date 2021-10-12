@@ -1,6 +1,7 @@
 # Slack the Music!
 
 A small babashka script to publish your current Apple Music track to a Slack Channel.
+It uses Apple Script, so it only works on MacOS
 
 Usage:
 
