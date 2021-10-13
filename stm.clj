@@ -36,7 +36,8 @@
     "Metal" ":the_horns:"
     "Jazz" ":trumpet:"
     "Alternative" ":broccoli:"
-    ":headphones"))
+    "Rock" ":guitar:"
+    ":headphones:"))
 
 (defn set-slack-status
   "Publishes track and artist in your Slack status.
